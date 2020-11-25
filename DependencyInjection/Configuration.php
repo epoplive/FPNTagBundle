@@ -32,7 +32,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('model')
                     ->isRequired()
-                     ->cannotBeEmpty()
+//                      ->cannotBeEmpty()
                     ->children()
                         ->scalarNode('tag_class')->isRequired()->cannotBeEmpty()->end()
                         ->scalarNode('tagging_class')->isRequired()->cannotBeEmpty()->end()
