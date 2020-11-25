@@ -20,14 +20,19 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('fpn_tag');
+        $treeBuilder = new TreeBuilder('fpn_tag');
+        if (\method_exists($treeBuilder, 'getRootNode')) {
+            $rootNode = $treeBuilder->getRootNode();
+        } else {
+            // BC layer for symfony/config 4.1 and older
+            $rootNode = $treeBuilder->root('fpn_tag');
+        }
 
         $rootNode
             ->children()
                 ->arrayNode('model')
                     ->isRequired()
-//                     ->cannotBeEmpty()
+                     ->cannotBeEmpty()
                     ->children()
                         ->scalarNode('tag_class')->isRequired()->cannotBeEmpty()->end()
                         ->scalarNode('tagging_class')->isRequired()->cannotBeEmpty()->end()
